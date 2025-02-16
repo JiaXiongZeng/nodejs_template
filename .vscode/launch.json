@@ -5,9 +5,6 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Development",
-            // "skipFiles": [
-            //     "<node_internals>/**"
-            // ],
             "program": "${workspaceFolder}/src/Server.ts",
             "preLaunchTask": "vite dev", // Run Vite task before launching the server
             "postDebugTask": "stop vite", // Stop Vite server after debugging
@@ -27,9 +24,6 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Production",
-            // "skipFiles": [
-            //     "<node_internals>/**"
-            // ],
             "program": "${workspaceFolder}/src/Server.ts",
             "preLaunchTask": "vite prod", // Run Vite task before launching the server
             "postDebugTask": "stop vite", // Stop Vite server after debugging
@@ -56,7 +50,7 @@
                 "NODE_ENV": "production"
             },
             "presentation": {
-                "hidden": true
+                "hidden": false
             }
         },
         {

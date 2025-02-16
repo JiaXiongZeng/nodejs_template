@@ -7,6 +7,11 @@ import { fileURLToPath } from 'url';
 // console.log(process.env.NODE_ENV);
 const PORT = config.get<number>("port");
 
+//Web Socket configuration
+const WS_HOST = config.get<string>("web_socket.host");
+const WS_PORT = config.get<number>("web_socket.port");
+
+//Root of the source code
 const srcRoot = 'src';
 
 // https://vite.dev/config/
@@ -21,7 +26,9 @@ export default defineConfig({
     assetsDir: `${srcRoot}/assets`,
     rollupOptions: {
       input: [
-        `${srcRoot}/main.tsx`
+        //`${srcRoot}/main.tsx`
+        //Need to compile html according to the manifest.json
+        'index.html'
       ],
       output: {
         manualChunks: (id) => {
@@ -47,11 +54,17 @@ export default defineConfig({
       '/api': `http://localhost:${PORT}`
     }
   },
+  define: {
+    __WS_HOST__: `"${WS_HOST}"`,
+    __WS_PORT__: WS_PORT
+  },
   resolve: {
     alias: [ 
       { find: '@types', replacement: fileURLToPath(new URL(`./${srcRoot}/types`, import.meta.url)) },
       { find: '@assets', replacement: fileURLToPath(new URL(`./${srcRoot}/assets`, import.meta.url)) },
       { find: '@styles', replacement: fileURLToPath(new URL(`./${srcRoot}/styles`, import.meta.url)) },
+      { find: '@models', replacement: fileURLToPath(new URL(`./${srcRoot}/models`, import.meta.url)) },
+      { find: '@utilities', replacement: fileURLToPath(new URL(`./${srcRoot}/utilities`, import.meta.url)) },
       { find: '@components', replacement: fileURLToPath(new URL(`./${srcRoot}/components`, import.meta.url)) },
     ]
   }

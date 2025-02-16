@@ -182,6 +182,14 @@ export class WebSocketAppBase {
         return computedHash === sessionHash;
     }
 
+    // Extend uWebSocket.js methods
+    private extendWebSocket(ws: WebSocket<IWebSocketUserData>) {
+        ws.sendObject = (obj) => {
+            const jsonString = JSON.stringify(obj);
+            ws.send(jsonString);
+        }
+    }
+
     // Use uWebSoeckt.js & asynchronous control with Promise to make a consistent flow logic
     private initializeWebSocket() {
         // Make the asynchronous methods run as the same sequential order
@@ -190,6 +198,8 @@ export class WebSocketAppBase {
         //   2. message
         //   3. close
         const openHandler = async (ws: WebSocket<IWebSocketUserData>) => {
+            this.extendWebSocket(ws);
+
             const wsData = ws.getUserData();
 
             const doLogic = async () => {

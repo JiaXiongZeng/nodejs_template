@@ -13,6 +13,7 @@ interface ChatMessage {
 }
 
 export type WsReqMessage = {
+    MessageId: string,
     Type: WsReqMessageType,
     //Parameters?: any[]
 } & Record<string, any>;
@@ -20,7 +21,7 @@ export type WsReqMessage = {
 enum WsReqMessageType {
     JoinRoom = "joinRoom",
     SendMessage = "sendMessage",
-    StatusUpdate = "statusUpdate",
+    UpdateStatus = "updateStatus",
 }
 
 enum WsResMessageType {
@@ -30,6 +31,7 @@ enum WsResMessageType {
 type WsReqMessageHandler<T> = (ws: WebSocket<T>, data: WsReqMessage) => void;
 
 export interface WsResMessage {
+    MessageId: string,
     Status: WsResMessageStatus,
     Type: WsReqMessageType | WsResMessageType,
     Message?: string,
@@ -74,7 +76,7 @@ export class MessageHandlerProvider<T> {
     private registerHandlers() {
         this.handlers[WsReqMessageType.JoinRoom] = this.handleJoinRoom.bind(this);
         this.handlers[WsReqMessageType.SendMessage] = this.handleSendMessage.bind(this);
-        this.handlers[WsReqMessageType.StatusUpdate] = this.handleStatusUpdate.bind(this);
+        this.handlers[WsReqMessageType.UpdateStatus] = this.handleUpdateStatus.bind(this);
     }
 
     public handleMessage(ws: WebSocket<T>, data: WsReqMessage) {
@@ -83,11 +85,12 @@ export class MessageHandlerProvider<T> {
             handler(ws, data);
         } else {
             const errorMsg: WsResMessage = {
+                MessageId: data.MessageId,
                 Status: WsResMessageStatus.Error,
                 Type: data.Type,
                 Message: 'Unknown message type'
             };
-            ws.send(JSON.stringify(errorMsg));
+            ws.sendObject(errorMsg);
         }
     }
 
@@ -96,35 +99,47 @@ export class MessageHandlerProvider<T> {
         // Check if room exists
         if (!this.chatRooms[roomId]) {
             const errorMsg: WsResMessage = {
+                MessageId: data.MessageId,
                 Status: WsResMessageStatus.Error,
                 Type: data.Type,
                 Message: 'Chatroom does not exist'
             };
-            ws.send(JSON.stringify(errorMsg));
+            ws.sendObject(errorMsg);
             return;
         }
 
         // Push the member into chatroom (Temporary)
-        this.chatRooms[roomId].Members.push(userId);
+        const members = this.chatRooms[roomId].Members;
+        if(members.indexOf(userId) == -1){
+            members.push(userId);
+        }
 
         // Successfully response
         const resMsg: WsResMessage = {
+            MessageId: data.MessageId,
             Status: WsResMessageStatus.Success,
             Type: data.Type,
             Message: `User [${userId}] joined room [${roomId}]`
         }
-        ws.send(JSON.stringify(resMsg));
+
+        // Broadcast message to room members
+        this.broadcastToRoom({
+            group: BroadcastGroup.ChatRoom,
+            roomId: roomId, 
+            message: resMsg
+        });
     }
 
     private handleSendMessage(ws: WebSocket<T>, data: WsReqMessage) {
         const { RoomId: roomId, Sender: sender, Content:content } = data;
         if (!this.chatRooms[roomId]) {
             const errorMsg: WsResMessage = {
+                MessageId: data.MessageId,
                 Status: WsResMessageStatus.Error,
                 Type: data.Type,
                 Message: 'Chatroom does not exist'
             };
-            ws.send(JSON.stringify(errorMsg));
+            ws.sendObject(errorMsg);
             return;
         }
         
@@ -138,6 +153,7 @@ export class MessageHandlerProvider<T> {
 
         // Successfully response
         const resMsg: WsResMessage = {
+            MessageId: data.MessageId,
             Status: WsResMessageStatus.Success,
             Type: WsResMessageType.NewMessage,
             Payload: {
@@ -154,7 +170,7 @@ export class MessageHandlerProvider<T> {
         });
     }
 
-    private handleStatusUpdate(ws: WebSocket<T>, data: WsReqMessage) {
+    private handleUpdateStatus(ws: WebSocket<T>, data: WsReqMessage) {
         const { UserId: userId, Status: status } = data;
 
         // Update user status (Temporary)
@@ -162,6 +178,7 @@ export class MessageHandlerProvider<T> {
 
         // Successfully response
         const resMsg: WsResMessage = {
+            MessageId: data.MessageId,
             Status: WsResMessageStatus.Success,
             Type: data.Type,
             Payload: {
@@ -172,7 +189,7 @@ export class MessageHandlerProvider<T> {
 
         // Broadcast status update to all users
         this.broadcastToRoom({
-            group: BroadcastGroup.ChatRoom,
+            group: BroadcastGroup.Friends,
             message: resMsg
         });
     }
@@ -188,7 +205,7 @@ export class MessageHandlerProvider<T> {
                         roomMembers.forEach((memberId) => {
                             const theWs = this.getSocketByUserId(memberId);
                             if (theWs) {
-                                theWs.send(JSON.stringify(message));
+                                theWs.sendObject(message);
                             }
                         });
                     }
@@ -197,7 +214,7 @@ export class MessageHandlerProvider<T> {
             case BroadcastGroup.Friends:
                 //Not implemented (Shoud be friends list in the session)
                 for(const userId in this.wsConns){
-                    this.wsConns[userId].send(JSON.stringify(message));
+                    this.wsConns[userId].sendObject(message);
                 }
                 break;
         }

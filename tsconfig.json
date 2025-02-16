@@ -120,6 +120,7 @@
   "exclude": ["client/**/*"],
   "files": [
     "src/types/session.d.ts",
-    "src/types/global.d.ts"
+    "src/types/global.d.ts",
+    "src/types/uWebSockets.d.ts"
   ]
 }

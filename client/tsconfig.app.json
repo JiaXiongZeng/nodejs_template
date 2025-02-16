@@ -11,6 +11,8 @@
       "@types/*": [ "types/*" ],
       "@assets/*": [ "assets/*" ],
       "@styles/*": [ "styles/*" ],
+      "@models/*": [ "models/*" ],
+      "@utilities/*": [ "utilities/*" ],
       "@components/*": [ "components/*" ]
     },
 
