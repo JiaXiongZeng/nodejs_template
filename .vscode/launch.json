@@ -5,46 +5,44 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Development",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/src/server.ts",
+            // "skipFiles": [
+            //     "<node_internals>/**"
+            // ],
+            "program": "${workspaceFolder}/src/Server.ts",
             "preLaunchTask": "vite dev", // Run Vite task before launching the server
             "postDebugTask": "stop vite", // Stop Vite server after debugging
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
             },
             "runtimeArgs": [
-                "-r",
-                "ts-node/register",
-                "-r",
-                "tsconfig-paths/register"
+                "-r", "ts-node/register",
+                "-r", "tsconfig-paths/register"
             ],
             "presentation": {
-                "hidden": true
+                "hidden": false
             }
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Debug Production",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/src/server.ts",
+            // "skipFiles": [
+            //     "<node_internals>/**"
+            // ],
+            "program": "${workspaceFolder}/src/Server.ts",
             "preLaunchTask": "vite prod", // Run Vite task before launching the server
             "postDebugTask": "stop vite", // Stop Vite server after debugging
             "env": {
-                "NODE_ENV": "production"
+                "NODE_ENV": "production",
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
             },
             "runtimeArgs": [
-                "-r",
-                "ts-node/register",
-                "-r",
-                "tsconfig-paths/register"
+                "-r", "ts-node/register",
+                "-r", "tsconfig-paths/register"
             ],
             "presentation": {
-                "hidden": true
+                "hidden": false
             }
         },
         {
@@ -52,7 +50,7 @@
             "request": "launch",
             "name": "Release Production",
             "preLaunchTask": "release", // Run the compound tasks to release frontend and backend to dist folder
-            "program": "server.js", // Path to compiled release entry point
+            "program": "Server.js", // Path to compiled release entry point
             "cwd": "${workspaceFolder}/dist",
             "env": {
                 "NODE_ENV": "production"
@@ -64,6 +62,7 @@
         {
             "type": "chrome",
             "request": "launch",
+            "timeout": 20000,
             "name": "Launch Chrome Debug Development Focused",
             "url": "http://localhost:5173",
             "runtimeArgs": ["--new-window"],
@@ -77,6 +76,7 @@
         {
             "type": "chrome",
             "request": "launch",
+            "timeout": 20000,
             "name": "Launch Chrome Debug Production Focused",
             "url": "http://localhost:5173",
             "runtimeArgs": ["--new-window"],
@@ -90,6 +90,7 @@
         {
             "type": "chrome",
             "request": "launch",
+            "timeout": 20000,
             "name": "Launch Chrome Release Focused",
             "url": "http://localhost:8080",
             "runtimeArgs": ["--new-window"],

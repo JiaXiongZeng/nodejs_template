@@ -1,3 +1,15 @@
 {
-    "port": 5000
+    "port": 5000,
+    "gemini_api_key": "AIzaSyA93_SNvmYfr9PqjqbDzIxc8AAONsyPCzU",
+    "session_secret": "lzuA6vTLFbcGJdMeLhDFGknpiG7Z6oV6DIs0kl+5rL0=",
+    "session_id_prefix": "Gemini_",
+    "redis": {
+        "host": "host.docker.internal",
+        "port": 6379,
+        "database": "myGeminiBot"
+    },
+    "web_socket": {
+        "host": "localhost",
+        "port": 9001
+    }
 }

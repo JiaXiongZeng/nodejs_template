@@ -1,2 +1,2 @@
 #!/bin/sh
-NODE_ENV="production" node ./dist/server.js
+NODE_ENV="production" node ./dist/Server.js

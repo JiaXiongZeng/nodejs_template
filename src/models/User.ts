@@ -1,5 +1,3 @@
-// src/models/UserModel.ts
-
 interface IUser {
     id: number;
     name: string;

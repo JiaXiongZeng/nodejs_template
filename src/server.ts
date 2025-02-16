@@ -1,66 +1,20 @@
-import express, { Application } from 'express';
-import cors from 'cors';
-import path from 'path';
-import config from 'config';
-import { UserRoutes } from '@routes/UserRoutes';
+import { WebApp } from 'WebApp';
+import { WebSocketApp } from 'WebSocketApp';
 
-interface ConfigSettings {
-    readonly PORT: number;
-}
+// Start the web server
+const { app: webApp, configs: webConfigs } = new WebApp();
+const WEB_PORT = webConfigs.Port;
+webApp.listen(WEB_PORT, () => {
+    console.log(`Web server is listening to port ${WEB_PORT}`);
+});
 
-export class App {
-    public app: Application;
-    public configs!: ConfigSettings;
-
-    constructor() {
-        this.app = express();
-        this.initializeConfigs();
-        this.initializeMiddlewares();
-        this.initializeRoutes();
+// Start the web socket server
+const { app: wsApp, configs: wsConfigs } = new WebSocketApp();
+const WS_PORT = wsConfigs.WebSocket.Port;
+wsApp.listen(WS_PORT, (token) => {
+    if (token) {
+        console.log(`Web socket server is listening to port ${WS_PORT}`);
+    } else {
+        console.log(`Web socket server is failed to listen to port ${WS_PORT}`);
     }
-
-    private initializeConfigs = () => {
-        this.configs = {
-            PORT: config.get<number>("port")
-        }
-    }
-
-    private initializeMiddlewares = () => {
-        // Middleware to enable CORS
-        this.app.use(cors());
-        // Middleware to parse JOSN bodies
-        this.app.use(express.json());
-        // Middleware to parse URL-encoded bodies
-        this.app.use(express.urlencoded({ extended: true }));
-    }
-
-    private initializeRoutes = () => {
-        const userRoutes = new UserRoutes();
-        this.app.use("/api/users", userRoutes.router);
-
-
-        // Define API routes here
-        this.app.get('/api', (req, res) => {
-            res.json({ message: 'Hello from the API!' });
-        });
-
-        // Serve static files from the dist directory
-        this.app.use(express.static(path.join(__dirname, './dist')));
-
-        // Serve the index.html file for any other requests (for SPA routing)
-        this.app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, './dist', 'index.html'));
-        });
-    }
-
-    public start = () => {
-        // Start the server
-        this.app.listen(this.configs.PORT, () => {
-            console.log(`Server is running on http://localhost:${this.configs.PORT}`);
-        });
-    }
-}
-
-//Run App backend
-const app = new App();
-app.start();
+});
