@@ -2,10 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import CssBaseline from '@mui/material/CssBaseline';
-import App from '@components/App';
-import PartnerManage from '@components/PartnerManage';
-import AddPartner from '@components/PartnerManagePages/AddPartner';
-import ListPartner from '@components/PartnerManagePages/ListPartner';
+import App from '@components/App.js';
+import PartnerManage from '@components/PartnerManage.js';
+import AddPartner from '@components/PartnerManagePages/AddPartner.js';
+import ListPartner from '@components/PartnerManagePages/ListPartner.js';
+import EmailPersonList from '@components/PartnerManagePages/EmailPersonList.js';
+import { ChatRoomManage } from '@components/ChatRoomManage.js';
+import { AddRoom } from '@components/ChatRoomPages/AddRoom.js';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -20,9 +23,12 @@ createRoot(document.getElementById('root')!).render(
           <Route path="partner" element={<PartnerManage />} >
             <Route path="list" index element={<ListPartner />} />
             <Route path="add" element={<AddPartner />} />
+            <Route path="email" element={<EmailPersonList />} />
           </Route>
 
-          <Route path="test" element={<>Test</>} />
+          <Route path="chatroom" element={<ChatRoomManage />} >
+            <Route path="add" element={<AddRoom />} />
+          </Route>
 
           {/* Unmatched routes */}
           <Route path="*" element={<>404 Not Found</>} />

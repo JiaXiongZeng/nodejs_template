@@ -20,7 +20,7 @@ import MuiListItemIcon, { ListItemIconProps as MuiListItemIconProps } from '@mui
 import MuiListItemText, { ListItemTextProps as MuiListItemTextProps } from '@mui/material/ListItemText';
 
 import reactSVG from '@assets/react.svg';
-import StyledBadge from '@components/Customization/StyledBadge';
+import StyledBadge from '@components/Customization/StyledBadge.js';
 
 
 export const drawerMaxWidth = 200;

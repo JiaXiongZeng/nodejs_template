@@ -1,6 +1,5 @@
 import { use, useState, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router';
-import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MailIcon from '@mui/icons-material/Mail';
@@ -21,35 +19,15 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import StarRateIcon from '@mui/icons-material/StarRate';
 
-import { InnerFixedBottomNavContext } from '@components/Customization/InnerFixedBottomNavigation';
+import { InnerFixedBottomNavContext } from '@components/Customization/InnerFixedBottomNavigation.js';
 //import { Search, StyledInputBase, SearchIconWrapper  } from '@components/Customization/SearchInput';
-import { SearchInputAutoComplete } from '@components/Customization/SearchInputAutoComplete';
+import { SearchInputAutoComplete } from '@components/Customization/SearchInputAutoComplete.js';
 import 
 { 
   useSecondaryAppBar, 
   SecAppBarMiddleBlock, SecAppBarRightBlock, SecAppBarMobilePopBlock
-} from '@components/Customization/SecondaryAppBar';
-
-//Create a customized style tooltip component
-const CustTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{tooltip: className}} />
-))(({ theme }) => ({
-  // Override Tooltip style
-  [`&.${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.primary.main, // Use theme primary main color
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: '1.5',
-    borderRadius: '8px',
-    padding: '8px 16px',
-    boxShadow: theme.shadows[4],    
-  },
-  // Override Arrow style
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.primary.main, // Make arrow color same as the tooltip
-  },
-  marginTop: '0px!important'
-}));
+} from '@components/Customization/SecondaryAppBar.js';
+import { CustomizedTooltip } from '@components/Customization/CustomizedTooltip.js';
 
 interface MessageExample {
     primary: string;
@@ -250,7 +228,7 @@ export const ListPartner = () => {
     
     return (
       <>      
-        <SecondaryAppBar title="Partner">
+        <SecondaryAppBar title="Partners" moreIcon={true}>
           {(ctxt) => (
             <>
               <SecAppBarMiddleBlock>
@@ -265,29 +243,29 @@ export const ListPartner = () => {
                   placeholder="Search…" />
               </SecAppBarMiddleBlock>
               <SecAppBarRightBlock>
-                <CustTooltip title="Messages" arrow placement="bottom"> 
+                <CustomizedTooltip title="Messages" arrow placement="bottom"> 
                   <IconButton size="large" color="inherit">
                     <Badge badgeContent={4} color="error">
                       <MailIcon />
                     </Badge>
                   </IconButton>
-                </CustTooltip>
-                <CustTooltip title="Notifications" arrow placement="bottom">
+                </CustomizedTooltip>
+                <CustomizedTooltip title="Notifications" arrow placement="bottom">
                   <IconButton size="large" color="inherit">
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
-                </CustTooltip>
-                <CustTooltip title="Friend Request" arrow placement="bottom">
+                </CustomizedTooltip>
+                <CustomizedTooltip title="Friend Request" arrow placement="bottom">
                   <IconButton size="large" color="inherit"
                   onClick={() => {
                     navigate('/partner/add', { replace: true });
                   }}>
                     <PersonAddIcon />
                   </IconButton>
-                </CustTooltip>
-                <CustTooltip title="Profile" arrow placement="bottom">
+                </CustomizedTooltip>
+                <CustomizedTooltip title="Profile" arrow placement="bottom">
                   <IconButton
                     size="large"
                     color="inherit"
@@ -296,7 +274,7 @@ export const ListPartner = () => {
                   >
                     <AccountCircle />
                   </IconButton>
-                </CustTooltip>
+                </CustomizedTooltip>
               </SecAppBarRightBlock>
 
               <SecAppBarMobilePopBlock>
@@ -353,7 +331,7 @@ export const ListPartner = () => {
                         <StarRateIcon />
                       </IconButton>
                     </Stack>
-                  </ListItemAvatar>       
+                  </ListItemAvatar>
               </ListItem>
             ))}
         </List>

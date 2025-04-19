@@ -26,7 +26,7 @@ export const PartnerManage = () => {
         <Outlet/>
         <InnerFixedBottomNavigation>
           <BottomNavigationAction component={ReplaceLink} to="/partner/list" replace label="List" icon={<PeopleIcon />} />
-          <BottomNavigationAction label="Mail Box" icon={<MarkAsUnreadIcon />} />
+          <BottomNavigationAction component={ReplaceLink} to="/partner/email" replace label="Mail Box" icon={<MarkAsUnreadIcon />} />
           <BottomNavigationAction label="Banned" icon={<NotInterestedIcon />} />
         </InnerFixedBottomNavigation>
       </InnerFixedBottomNavContext>      

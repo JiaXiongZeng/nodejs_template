@@ -1,4 +1,5 @@
 import { useNavigate, Outlet } from 'react-router';
+import { createTheme, ThemeProvider } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import FriendsIcon from '@mui/icons-material/Diversity3';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -11,10 +12,22 @@ import PageLayout,
     PageLayoutContext
 } from '@components/Customization/PageLayout';
 
+const theme = createTheme({
+    components: {
+        MuiButton: {
+            styleOverrides:{
+                root: {
+                    textTransform: "none"  // Prevents uppercase transformation
+                }
+            }
+        }
+    }
+});
+
 const App = () => {
     const navigate = useNavigate();
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <title>Chat with AI</title>
             <PageLayout>
                 <SidebarTop>
@@ -36,7 +49,7 @@ const App = () => {
                                     <ListItemButton 
                                         open={context?.open}
                                         onClick={() => {
-                                            navigate('/test', { replace: true });
+                                            navigate('/chatroom', { replace: true });
                                         }} >
                                         <ListItemIcon open={context?.open} >
                                         <MeetingRoomIcon />
@@ -68,7 +81,7 @@ const App = () => {
                     <Outlet />
                 </Content>
             </PageLayout>
-        </>      
+        </ThemeProvider>      
     );
 }
 

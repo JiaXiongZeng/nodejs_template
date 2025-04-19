@@ -42,6 +42,7 @@ type SecondaryAppBarChildren<T=SecondaryAppBarContextProps> = (contextValue: T &
 type SecondaryAppBarProps<T=SecondaryAppBarContextProps> = {
     title?: string,
     context?: Context<Nullable<T & SecondaryAppBarContextProps>>,
+    moreIcon?: boolean,
     children: SecondaryAppBarChildren<T>
 } & Omit<MuiAppBarProps, 'children'>;
 
@@ -93,7 +94,7 @@ const AppBar = styled(MuiAppBar, {
     ]
 }));
 
-export const SecondaryAppBar = <T=SecondaryAppBarContextProps>({ title, children, context, ...restAppBarProps }: SecondaryAppBarProps<T>) => {
+export const SecondaryAppBar = <T=SecondaryAppBarContextProps>({ title, moreIcon, children, context, ...restAppBarProps }: SecondaryAppBarProps<T>) => {
   const pageLayoutCtxt = use(PageLayoutContext);
   const ContextComp = context || createSecondaryAppBarContext({} as T & SecondaryAppBarContextProps);
   const initialContext = use(ContextComp);
@@ -153,18 +154,27 @@ export const SecondaryAppBar = <T=SecondaryAppBarContextProps>({ title, children
                                 </Box>
                             }
                             {middleBlock}
-                            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Box sx={{ 
+                              display: {
+                                  md: 'flex',
+                                  ...(moreIcon? {xs: 'none'}: {})
+                              }
+                            }}>
                                 {rightBlock}
                             </Box>
-                            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                size="large"
-                                color="inherit"
-                                onClick={handleMobileMenuOpen}
-                                >
-                                  <MoreIcon />
-                                </IconButton>
-                            </Box>
+                            {
+                              moreIcon ?
+                              <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                  <IconButton
+                                  size="large"
+                                  color="inherit"
+                                  onClick={handleMobileMenuOpen}
+                                  >
+                                    <MoreIcon />
+                                  </IconButton>
+                              </Box>
+                              : null
+                            }                            
                         </Toolbar>
                     </AppBar>
                     <Menu
