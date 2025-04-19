@@ -1,16 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { TYPES } from '@infrastructures/di/types';
-import { IConfigSettings } from '@middlewares/ConfigMiddleware';
-import { IRedisJsonClient } from '@infrastructures/interfaces/IRedisJsonClient';
+import { TYPES } from '@infrastructures/di/types.js';
+import { type IConfigSettings } from '@middlewares/ConfigMiddleware.js';
+import { type IRedisJsonClient } from '@infrastructures/interfaces/IRedisJsonClient.js';
 import { createClient, RedisClientType } from 'redis';
-import json from '@redis/json';
-
-/**
- * My Redis module settings
- */
-export type RedisModules = {
-  json: typeof json
-}
 
 @injectable()
 export class RedisJsonClient implements IRedisJsonClient {
@@ -27,8 +19,7 @@ export class RedisJsonClient implements IRedisJsonClient {
     const redisRUL = `redis://${this._configs.Redis.Host}:${this._configs.Redis.Port}/1`;
 
     this._client = createClient({
-      url: redisRUL,
-      modules: { json }
+      url: redisRUL
     });
 
     this._client.on('error', (err) => {

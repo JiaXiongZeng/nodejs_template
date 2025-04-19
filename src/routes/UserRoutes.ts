@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { UserController } from '@controllers/UserController';
-import { UserModel } from '@models/User';
+import { UserController } from '@controllers/UserController.js';
+import { UserModel } from '@controllers/models/viewmodels/User.js';
 
 export class UserRoutes {
   public router: Router;

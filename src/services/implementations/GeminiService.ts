@@ -1,8 +1,8 @@
 import { injectable, inject } from 'inversify';
-import { TYPES } from '@infrastructures/di/types';
-import { IConfigSettings } from '@middlewares/ConfigMiddleware';
+import { TYPES } from '@infrastructures/di/types.js';
+import { type IConfigSettings } from '@middlewares/ConfigMiddleware.js';
 import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
-import { GEMINI_MODELS, IGeminiService } from '@services/interfaces/IGeminiService';
+import { GEMINI_MODELS, IGeminiService } from '@services/interfaces/IGeminiService.js';
 
 @injectable()
 export class GeminiService implements IGeminiService {

@@ -1,7 +1,7 @@
-import { WebSocketAppBase, IWebSocketUserData } from "@infrastructures/implements/WebSocketAppBase";
+import { WebSocketAppBase, IWebSocketUserData } from "@infrastructures/implements/WebSocketAppBase.js";
 import { WebSocket } from 'uWebSockets.js';
 import { MessageHandlerProvider, ChatRoom, UserStatus, 
-         WsReqMessage, WsResMessage, WsResMessageStatus } from '@webSocket/providers/ChatMessageHandlerProvider';
+         WsReqMessage, WsResMessage, WsResMessageStatus } from '@webSocket/providers/ChatMessageHandlerProvider.js';
 
 export class WebSocketApp extends WebSocketAppBase {
     private readonly _wsConns: Record<string, WebSocket<IWebSocketUserData>> = {};

@@ -1,5 +1,5 @@
 import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import TextField, {TextFieldProps, textFieldClasses} from '@mui/material/TextField';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -27,12 +27,14 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+export const StyledInputBase = styled(({ className, size, ...props }: TextFieldProps) => (
+  <TextField size={size ?? "small"} {...props} classes={{ root: className }} />
+))(({ theme }) => ({
   color: 'inherit',
-  '& .MuiInputBase-input': {
+  [`&.${textFieldClasses.root}`]: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    //paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -43,8 +45,16 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
     [theme.breakpoints.up('lg')]: {
       width: '80ch',
-    }    
+    }  
   },
+  // placeholder style
+  '& input::placeholder': {
+    textIndent: '2em',
+  },
+  // input box style
+  '& .MuiInputBase-input': {
+    textIndent: '2em',
+  }
 }));
 
 export default Search;

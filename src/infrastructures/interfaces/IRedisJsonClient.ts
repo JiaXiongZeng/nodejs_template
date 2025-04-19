@@ -1,3 +1,3 @@
-import { IRedisClient } from '@infrastructures/interfaces/IRedisClient';
+import { IRedisClient } from '@infrastructures/interfaces/IRedisClient.js';
 
 export interface IRedisJsonClient extends IRedisClient {}

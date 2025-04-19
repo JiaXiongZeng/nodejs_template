@@ -1,4 +1,4 @@
-import { LoginUser } from '@models/LoginUser';
+import { LoginUser } from '@services/models/dtos/LoginUser.js';
 import { Principal } from 'inversify-express-utils';
 
 declare module 'express-session' {

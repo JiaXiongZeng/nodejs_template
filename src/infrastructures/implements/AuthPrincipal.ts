@@ -1,5 +1,5 @@
 import { Principal } from 'inversify-express-utils';
-import { LoginUser } from '@models/LoginUser';
+import { LoginUser } from '@services/models/dtos/LoginUser.js';
 
 export class AuthPrincipal implements Principal<Nullable<LoginUser>> {
     public details: Nullable<LoginUser>;

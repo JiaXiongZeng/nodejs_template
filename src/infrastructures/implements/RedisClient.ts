@@ -1,8 +1,8 @@
 import { createClient, RedisClientType } from 'redis';
 import { injectable, inject } from 'inversify';
-import { TYPES } from '@infrastructures/di/types';
-import { IConfigSettings } from '@middlewares/ConfigMiddleware';
-import { IRedisClient } from '@infrastructures/interfaces/IRedisClient';
+import { TYPES } from '@infrastructures/di/types.js';
+import { type IConfigSettings } from '@middlewares/ConfigMiddleware.js';
+import { IRedisClient } from '@infrastructures/interfaces/IRedisClient.js';
 
 @injectable()
 export class RedisClient implements IRedisClient {

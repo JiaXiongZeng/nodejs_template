@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router';
+import { useNavigate, Outlet } from 'react-router';
 import ListItem from '@mui/material/ListItem';
 import FriendsIcon from '@mui/icons-material/Diversity3';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -10,8 +10,6 @@ import PageLayout,
     ListItemButton, ListItemText, ListItemIcon,
     PageLayoutContext
 } from '@components/Customization/PageLayout';
-
-import PartnerManage from '@components/PartnerManage';
 
 const App = () => {
     const navigate = useNavigate();
@@ -27,7 +25,7 @@ const App = () => {
                                     <ListItemButton 
                                         open={context?.open}
                                         onClick={() => {
-                                            navigate('/partner', { replace: true });
+                                            navigate('/partner/list', { replace: true });
                                         }}>
                                         <ListItemIcon open={context?.open} >
                                         <FriendsIcon />
@@ -67,10 +65,7 @@ const App = () => {
                     </PageLayoutContext.Consumer>
                 </SidebarBottom>
                 <Content>
-                    <Routes>
-                        <Route path="/partner/*" element={<PartnerManage/>} />
-                        <Route path="/test" element={<>Test</>} />
-                    </Routes>
+                    <Outlet />
                 </Content>
             </PageLayout>
         </>      

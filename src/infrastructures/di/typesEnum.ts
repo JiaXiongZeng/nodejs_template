@@ -1,0 +1,18 @@
+export const TYPES_ENUM = {
+    IConfigSettings: 'IConfigSettings',
+    IGeminiService: 'IGeminiService',
+    IRedisClient: 'IRedisClient',
+    IRdiesJsonClient: 'IRedisJsonClient',
+    IRedisSessionStore: 'ISessionStore',
+    RedisSessionMiddleware: 'RedisSessionMiddleware',
+    ScopedDBContextMiddleware: 'ScopedDBContextMiddleware',
+    MikroORMAsync: 'MikroORMAsync',
+    MikroORMFactoryAsync: 'MikroORMFactoryAsync',
+    IDBContext: 'IDBContext',
+    ScopedDBContext: 'ScopedDBContext',
+    Mapper: 'Mapper',
+    IFriendsRepository: 'IFriendsRepository',
+    IFriendsService: 'IFriendsService',
+    IAccountRepository: 'IAccountRepository',
+    IAccountService: 'IAccountService'
+};

@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
-import session from "express-session";
-import { injectable, inject } from "inversify";
-import { BaseMiddleware } from "inversify-express-utils";
-import { TYPES } from '@infrastructures/di/types';
-import { IRedisSessionStore } from "@infrastructures/interfaces/IRedisSessionStore";
+import { Request, Response, NextFunction } from 'express';
+import session from 'express-session';
+import { injectable, inject } from 'inversify';
+import { BaseMiddleware } from 'inversify-express-utils';
+import { TYPES } from '@infrastructures/di/types.js';
+import { type IRedisSessionStore } from '@infrastructures/interfaces/IRedisSessionStore.js';
 
 // Middleware class
 @injectable()

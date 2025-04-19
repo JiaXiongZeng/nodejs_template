@@ -1,7 +1,6 @@
 import { SessionData } from 'express-session';
 import { RedisClientType } from 'redis';
 import { RedisStore } from 'connect-redis';
-import { RedisModules } from '@infrastructures/implements/RedisJsonClient';
 
 declare interface RedisStoreOptions {
    client: RedisClientType;
@@ -25,7 +24,7 @@ declare interface Serializer {
  * Purpose: reducing the transmit bandwidth while processing a giant json string
  */
 export class RedisJsonStore extends RedisStore {
-   private _redisClient: RedisClientType<RedisModules>;
+   private _redisClient: RedisClientType;
 
    constructor(options: RedisStoreOptions) {
       super(options);

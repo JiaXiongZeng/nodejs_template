@@ -1,5 +1,6 @@
-import { WebApp } from 'WebApp';
-import { WebSocketApp } from 'WebSocketApp';
+import { WebApp } from 'WebApp.js';
+import { WebSocketApp } from 'WebSocketApp.js';
+import { EOL } from 'os';
 
 // Start the web server
 const { app: webApp, configs: webConfigs } = new WebApp();
@@ -17,4 +18,16 @@ wsApp.listen(WS_PORT, (token) => {
     } else {
         console.log(`Web socket server is failed to listen to port ${WS_PORT}`);
     }
+});
+
+//To prevent the process shutdown by uncaught exception
+process.on('uncaughtException', err => {
+    console.error(`Uncaught Exception:${EOL}`, err);
+    //Don't call process.exit(1) unless absolutely necessary
+});
+
+//To prevent the process shutdown by uncaught reason
+process.on('unhandledRejection', reason => {
+    console.error(`Unhandle Rejection:${EOL}`, reason);
+    //Don't call process.exit(1) unless absolutely necessary
 });

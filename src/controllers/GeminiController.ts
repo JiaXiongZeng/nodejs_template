@@ -1,10 +1,10 @@
 // Controller with dependency injection structure
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { inject } from 'inversify';
-import { TYPES } from '@infrastructures/di/types';
+import { TYPES } from '@infrastructures/di/types.js';
 import { BaseHttpController, controller, httpGet, request, response, queryParam } from 'inversify-express-utils';
-import { IGeminiService, GEMINI_MODELS } from '@services/interfaces/IGeminiService';
-import { authenticate, authorizeRoles, authorizeOwners } from '@middlewares/AuthDecorator';
+import { type IGeminiService, GEMINI_MODELS } from '@services/interfaces/IGeminiService.js';
+import { authenticate, authorizeRoles, authorizeOwners } from '@middlewares/AuthDecorator.js';
 
 interface MessageResponse {
     request: string,

@@ -1,4 +1,4 @@
-import { withMiddleware } from "inversify-express-utils";
+import { withMiddleware } from 'inversify-express-utils';
 
 export const authenticate = () => {
     return withMiddleware(async (req, res, next) => {

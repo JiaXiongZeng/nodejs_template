@@ -12,9 +12,25 @@
                 "NODE_ENV": "development",
                 "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
             },
+            "cwd": "${workspaceFolder}",
             "runtimeArgs": [
-                "-r", "ts-node/register",
-                "-r", "tsconfig-paths/register"
+                //Make MikrORM automatically detect typescript env (run by ts-node)
+                //Ref: https://mikro-orm.io/docs/metadata-providers#tsmorphmetadataprovider
+                "-r", "${workspaceFolder}/node_modules/ts-node/register",
+
+                //Use tsconfig.json "ts-node": { "esm": true } to configure      
+                //"--loader", "${workspaceFolder}/node_modules/ts-node/dist/esm.js",
+
+                //Supress warnings
+                "--no-warnings",
+
+                //Use customized path resolver
+                //Ref:            
+                // 1. https://github.com/TypeStrong/ts-node/discussions/1450#discussion-3563207
+                // 2. https://stackoverflow.com/questions/71571684/ts-node-with-tsconfig-paths-wont-work-when-using-esm  
+                //"-r", "${workspaceFolder}/node_modules/tsconfig-paths/register",
+                //"--loader", "${workspaceFolder}/src/PathAliasLoader.js",
+                "--import", "data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"${workspaceFolder}/src/PathAliasLoader.js\", pathToFileURL(\"./\"));"
             ],
             "presentation": {
                 "hidden": false
@@ -31,9 +47,11 @@
                 "NODE_ENV": "production",
                 "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
             },
+            "cwd": "${workspaceFolder}",
             "runtimeArgs": [
-                "-r", "ts-node/register",
-                "-r", "tsconfig-paths/register"
+                "-r", "${workspaceFolder}/node_modules/ts-node/register",
+                "--no-warnings",
+                "--import", "data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"${workspaceFolder}/src/PathAliasLoader.js\", pathToFileURL(\"./\"));"
             ],
             "presentation": {
                 "hidden": false

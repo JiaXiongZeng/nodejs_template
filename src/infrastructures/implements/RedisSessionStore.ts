@@ -1,11 +1,11 @@
 import { injectable, inject } from 'inversify';
 import { RedisStore } from 'connect-redis';
 //import { RedisClient } from '@infrastructures/implements/RedisClient';
-import { RedisJsonStore } from '@infrastructures/implements/RedisJsonStore';
-import { RedisJsonClient } from '@infrastructures/implements/RedisJsonClient';
-import { IRedisSessionStore } from '@infrastructures/interfaces/IRedisSessionStore';
-import { IConfigSettings } from '@middlewares/ConfigMiddleware';
-import { TYPES } from '@infrastructures/di/types';
+import { RedisJsonStore } from '@infrastructures/implements/RedisJsonStore.js';
+import { RedisJsonClient } from '@infrastructures/implements/RedisJsonClient.js';
+import { IRedisSessionStore } from '@infrastructures/interfaces/IRedisSessionStore.js';
+import { type IConfigSettings } from '@middlewares/ConfigMiddleware.js';
+import { TYPES } from '@infrastructures/di/types.js';
 
 @injectable()
 export class RedisSessionStore implements IRedisSessionStore {

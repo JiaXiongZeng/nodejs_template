@@ -1,9 +1,8 @@
-import { container } from '@infrastructures/di/inversify.config';
-import { TYPES } from '@infrastructures/di/types';
+import { container } from '@infrastructures/di/inversify.config.js';
+import { TYPES } from '@infrastructures/di/types.js';
 //import { IRedisClient } from '@infrastructures/interfaces/IRedisClient';
-import { IRedisJsonClient } from '@infrastructures/interfaces/IRedisJsonClient';
-import { RedisModules } from '@infrastructures/implements/RedisJsonClient';
-import { IConfigSettings } from '@middlewares/ConfigMiddleware'
+import { IRedisJsonClient } from '@infrastructures/interfaces/IRedisJsonClient.js';
+import { IConfigSettings } from '@middlewares/ConfigMiddleware.js'
 import { App, TemplatedApp, SHARED_COMPRESSOR, WebSocket } from 'uWebSockets.js';
 import { RedisClientType } from 'redis';
 import cookie from 'cookie';
@@ -40,7 +39,7 @@ export class WebSocketUserData implements IWebSocketUserData {
     public readonly CloseSession: () => Promise<void>;
 
     private readonly GetRedisSessionKey: () => string;
-    private readonly RedisClient: RedisClientType<RedisModules>;
+    private readonly RedisClient: RedisClientType;
     private _cookieInfoCache?: Cookie;    
 
     constructor(opts: WebSocketUserDataOption) {

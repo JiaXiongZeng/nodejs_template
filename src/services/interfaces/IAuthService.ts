@@ -1,5 +1,9 @@
-import { LoginUser } from '@models/LoginUser';
+import { LoginUser } from '@services/models/dtos/LoginUser.js';
 
 export interface IAuthService {
-    GetLoginUser(): Promise<Nullable<LoginUser>>
+    /**
+     * Get the login user
+     * @returns The login user
+     */
+    GetLoginUser(): Promise<Nullable<LoginUser>>;
 }

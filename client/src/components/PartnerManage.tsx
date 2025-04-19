@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from 'react-router';
+import { Outlet } from 'react-router';
 import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
@@ -7,7 +7,6 @@ import PeopleIcon from '@mui/icons-material/People';
 import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 
-import ListPartner from '@components/PartnerManagePages/ListPartner';
 import ReplaceLink from '@components/Customization/ReplaceLink';
 
 import { 
@@ -24,10 +23,7 @@ export const PartnerManage = () => {
         value: val,
         setValue: setVal
       }}>
-        <Routes>
-          <Route index element={<ListPartner/>}/>
-          <Route path="list" element={<ListPartner/>} />
-        </Routes>
+        <Outlet/>
         <InnerFixedBottomNavigation>
           <BottomNavigationAction component={ReplaceLink} to="/partner/list" replace label="List" icon={<PeopleIcon />} />
           <BottomNavigationAction label="Mail Box" icon={<MarkAsUnreadIcon />} />

@@ -1,5 +1,5 @@
 // Controller with villina node js structure
-import { UserModel } from '@models/User';
+import { UserModel } from '@controllers/models/viewmodels/User.js';
 import { Request, Response } from 'express';
 
 export class UserController {

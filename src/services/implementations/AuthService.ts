@@ -1,7 +1,7 @@
 import { Session, SessionData } from 'express-session';
 import { injectable } from 'inversify';
-import { IAuthService } from '@services/interfaces/IAuthService';
-import { LoginUser } from '@models/LoginUser';
+import { IAuthService } from '@services/interfaces/IAuthService.js';
+import { LoginUser } from '@services/models/dtos/LoginUser.js';
 
 @injectable()
 export class AuthService implements IAuthService {

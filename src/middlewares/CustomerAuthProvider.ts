@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
-import { Principal, AuthProvider } from "inversify-express-utils";
+import { injectable } from 'inversify';
+import { Principal, AuthProvider } from 'inversify-express-utils';
 import { Request, Response, NextFunction } from 'express';
-import { AuthPrincipal } from "@infrastructures/implements/AuthPrincipal";
-import { AuthService } from "@services/implementations/AuthService";
+import { AuthPrincipal } from '@infrastructures/implements/AuthPrincipal.js';
+import { AuthService } from '@services/implementations/AuthService.js';
 
 @injectable()
 export class CustomAuthProvider implements AuthProvider {

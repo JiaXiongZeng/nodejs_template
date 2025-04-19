@@ -19,6 +19,7 @@ export interface IConfigSettings {
     readonly SessionIdPrefix: string;
     readonly Redis: IRedisSettings;
     readonly WebSocket: IWebSocketSettings;
+    readonly DBConnections: IDBConnections;
 }
 
 export interface IRedisSettings {
@@ -32,6 +33,19 @@ export interface IWebSocketSettings {
     readonly Host: string;
 }
 
+export interface IDBConnections {
+  readonly chatwai: IDBConnectionInfo;
+}
+
+export interface IDBConnectionInfo {
+  readonly Host: string;
+  readonly Port: number;
+  readonly UserNmae: string;
+  readonly Password: string;
+  readonly Database: string;
+  readonly Debug: boolean;
+}
+
 @injectable()
 export class ConfigSettings implements IConfigSettings {
   private _port: number;
@@ -40,6 +54,7 @@ export class ConfigSettings implements IConfigSettings {
   private _sessionIdPrefix: string;
   private _redis: any;
   private _webSocket: any;
+  private _dbConnections: any;
 
   constructor() {
     this._port = config.get<number>("port");
@@ -48,6 +63,7 @@ export class ConfigSettings implements IConfigSettings {
     this._sessionIdPrefix = config.get<string>("session_id_prefix");
     this._redis = config.get("redis");
     this._webSocket = config.get("web_socket");
+    this._dbConnections = config.get("db_connections");
   }
 
   public get Port(): number {
@@ -78,6 +94,20 @@ export class ConfigSettings implements IConfigSettings {
     return {
       Host: this._webSocket.host,
       Port: this._webSocket.port
+    }
+  }
+
+  public get DBConnections(): IDBConnections {
+    const connPart = this._dbConnections;
+    return {
+      chatwai: {
+          Host: connPart.chatwai.host,
+          Port: connPart.chatwai.port,
+          UserNmae: connPart.chatwai.username,
+          Password: connPart.chatwai.password,
+          Database: connPart.chatwai.database,
+          Debug: false || connPart.chatwai.debug
+      }
     }
   }
 }
