@@ -1,0 +1,167 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "vite dev",
+			"type": "npm",
+			"script": "debug-dev",
+			"path": "client",
+			"group": "build",
+			"problemMatcher": {
+				"owner": "vite",
+				"fileLocation": ["relative", "${workspaceFolder}"],
+				"pattern": [
+					{
+						"regexp": ".",
+						"file": 1,
+						"location": 2,
+						"message": 3
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "VITE .* running at", // Adjust based on the Vite log output
+					"endsPattern": "ready in .*ms"
+				}
+			},
+			// "options": {
+			// 	"cwd": "${workspaceFolder}/client",
+			// 	"env": {
+			// 		"NODE_ENV": "development"
+			// 	}
+			// },
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"focus": false,
+				"panel": "shared"
+			},
+			"detail": "This is a task for using HRM with vite server while in debug phase for development"
+		},
+		{
+			"label": "vite prod",
+			"type": "npm",
+			"script": "debug-prod",
+			"path": "client",
+			"group": "build",
+			"problemMatcher": {
+				"owner": "vite",
+				"fileLocation": ["relative", "${workspaceFolder}"],
+				"pattern": [
+					{
+						"regexp": ".",
+						"file": 1,
+						"location": 2,
+						"message": 3
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "VITE .* running at", // Adjust based on the Vite log output
+					"endsPattern": "ready in .*ms"
+				}
+			},
+			// "options": {
+			// 	"cwd": "${workspaceFolder}/client",
+			// 	"env": {
+			// 		"NODE_ENV": "production"
+			// 	}
+			// },
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"echo": true,
+				"focus": false,
+				"panel": "shared"
+			},
+			"detail": "This is a task for using HRM with vite server while in debug phase for production"
+		},
+		{
+			"label": "stop vite",
+			"type": "process",
+			"command": "pkill",
+			"args": [
+				"-f",
+				"vite"
+			],
+			"group": "none",
+			"problemMatcher": [],
+			"detail": "Stops the vite servers"
+		},
+		{
+			"label": "frontend cleanup",
+			"type": "shell",
+			"command": "rm -rf ${workspaceFolder}/client/dist",
+			"group": "none",
+			"problemMatcher": [],
+			"detail": "Clear all built frontend outputs"
+		},
+		{
+			"label": "backend cleanup",
+			"type": "shell",
+			"command": "rm -rf ${workspaceFolder}/dist",
+			"group": "none",
+			"problemMatcher": [],
+			"detail": "Clear all built backend outputs"
+		},
+		{
+			"label": "frontend build",
+			"type": "npm",
+			"script": "build",
+			"path": "client",
+			"dependsOn":[
+				"frontend cleanup"
+			],
+			"dependsOrder": "sequence",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "Builds the frontend using Vite"
+		},
+		{
+			"label": "backend build",
+			"type": "npm",
+			"script": "build",
+			"dependsOn":[
+				"backend cleanup"
+			],
+			"dependsOrder": "sequence",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "Compile the backend TypeScript application"
+		},
+		{
+			"label": "copy relevant files",
+			"type": "shell",
+			"command": "mkdir -p ./dist/dist && cp -R ./config ./dist && cp -R ./client/dist/* ./dist/dist",
+			"group": {
+				"kind": "none",
+				// "isDefault": true
+			},
+			"problemMatcher": [],
+			"detail": "Copy the frontend dist files as well as app configs to backend host folder (/dist)"
+		},
+		{
+			"label": "build all",
+			"dependsOn": [
+				"frontend build",
+				"backend build"
+			],
+			"dependsOrder": "sequence",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "Builds both frontend and backend"
+		},
+		{
+			"label": "release",
+			"dependsOn": [
+				"build all",
+				"copy relevant files"
+			],
+			"dependsOrder": "sequence",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "Release both frontend and backend to the dist folder"
+		},
+	]
+}

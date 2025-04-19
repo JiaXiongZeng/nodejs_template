@@ -1,0 +1,25 @@
+{
+    "port": 8080,
+    "gemini_api_key": "AIzaSyA93_SNvmYfr9PqjqbDzIxc8AAONsyPCzU",
+    "session_secret": "YZWqh2hZ9deHpHXs0PNOggl0+LBaymSshP43ZldhINU=",
+    "session_id_prefix": "Gemini_",
+    "redis": {
+        "host": "host.docker.internal",
+        "port": 6379,
+        "database": "myGeminiBot"
+    },
+    "web_socket": {
+        "host": "localhost",
+        "port": 8081
+    },
+    "db_connections": {
+        "chatwai": {
+            "host": "172.29.104.25",
+            "port": 5432,
+            "username": "chatwai",
+            "password": "aA123456",
+            "database": "chatapp",
+            "debug": false
+        }
+    }
+}

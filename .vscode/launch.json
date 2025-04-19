@@ -1,0 +1,134 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Development",
+            "program": "${workspaceFolder}/src/Server.ts",
+            "preLaunchTask": "vite dev", // Run Vite task before launching the server
+            "postDebugTask": "stop vite", // Stop Vite server after debugging
+            "env": {
+                "NODE_ENV": "development",
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+            },
+            "cwd": "${workspaceFolder}",
+            "runtimeArgs": [
+                //Make MikrORM automatically detect typescript env (run by ts-node)
+                //Ref: https://mikro-orm.io/docs/metadata-providers#tsmorphmetadataprovider
+                "-r", "${workspaceFolder}/node_modules/ts-node/register",
+
+                //Use tsconfig.json "ts-node": { "esm": true } to configure      
+                //"--loader", "${workspaceFolder}/node_modules/ts-node/dist/esm.js",
+
+                //Supress warnings
+                "--no-warnings",
+
+                //Use customized path resolver
+                //Ref:            
+                // 1. https://github.com/TypeStrong/ts-node/discussions/1450#discussion-3563207
+                // 2. https://stackoverflow.com/questions/71571684/ts-node-with-tsconfig-paths-wont-work-when-using-esm  
+                //"-r", "${workspaceFolder}/node_modules/tsconfig-paths/register",
+                //"--loader", "${workspaceFolder}/src/PathAliasLoader.js",
+                "--import", "data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"${workspaceFolder}/src/PathAliasLoader.js\", pathToFileURL(\"./\"));"
+            ],
+            "presentation": {
+                "hidden": false
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Production",
+            "program": "${workspaceFolder}/src/Server.ts",
+            "preLaunchTask": "vite prod", // Run Vite task before launching the server
+            "postDebugTask": "stop vite", // Stop Vite server after debugging
+            "env": {
+                "NODE_ENV": "production",
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+            },
+            "cwd": "${workspaceFolder}",
+            "runtimeArgs": [
+                "-r", "${workspaceFolder}/node_modules/ts-node/register",
+                "--no-warnings",
+                "--import", "data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"${workspaceFolder}/src/PathAliasLoader.js\", pathToFileURL(\"./\"));"
+            ],
+            "presentation": {
+                "hidden": false
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Release Production",
+            "preLaunchTask": "release", // Run the compound tasks to release frontend and backend to dist folder
+            "program": "Server.js", // Path to compiled release entry point
+            "cwd": "${workspaceFolder}/dist",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "presentation": {
+                "hidden": false
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "timeout": 20000,
+            "name": "Launch Chrome Debug Development Focused",
+            "url": "http://localhost:5173",
+            "runtimeArgs": ["--new-window"],
+            "preLaunchTask": "vite dev",
+            "disableNetworkCache": true,
+            "trace": false,
+            "presentation": {
+                "hidden": true
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "timeout": 20000,
+            "name": "Launch Chrome Debug Production Focused",
+            "url": "http://localhost:5173",
+            "runtimeArgs": ["--new-window"],
+            "preLaunchTask": "vite prod",
+            "disableNetworkCache": true,
+            "trace": false,
+            "presentation": {
+                "hidden": true
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "timeout": 20000,
+            "name": "Launch Chrome Release Focused",
+            "url": "http://localhost:8080",
+            "runtimeArgs": ["--new-window"],
+            "preLaunchTask": "release",
+            "disableNetworkCache": true,
+            "trace": false,
+            "presentation": {
+                "hidden": true
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Debug Development with Browser",
+            "configurations": ["Debug Development", "Launch Chrome Debug Development Focused"],
+            "stopAll": true
+        },
+        {
+            "name": "Launch Debug Production with Browser",
+            "configurations": ["Debug Production", "Launch Chrome Debug Production Focused"],
+            "stopAll": true
+        },
+        {
+            "name": "Launch Release with Browser",
+            "configurations": ["Release Production", "Launch Chrome Release Focused"],
+            "stopAll": true
+        }
+    ]
+}
