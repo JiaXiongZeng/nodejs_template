@@ -22,4 +22,16 @@ export class ApiController extends BaseHttpController {
         };
         return super.json(responseJSON as any, statusCode);
     }
+
+    protected ApiError<T>(content: T, code?: string): OkNegotiatedContentResult<T> {
+        const responseJSON: ApiResponse<T> = {
+            success: false,
+            error: {
+                code: code || "",
+                message: (typeof content === "string"? content: JSON.stringify(content))
+            }
+        };
+
+        return super.ok(responseJSON);
+    }
 }

@@ -19,10 +19,14 @@ import { IFriendsRepository } from '@repositories/interfaces/IFriendsRepository.
 import { FriendsRepository } from '@repositories/implements/FriendsRepository.js';
 import { IAccountRepository } from '@repositories/interfaces/IAccountRepository.js';
 import { AccountRepository } from '@repositories/implements/AccountRepository.js';
+import { IRoomRepository } from '@repositories/interfaces/IRoomRepository.js';
+import { RoomRepository } from '@repositories/implements/RoomRepository.js';
 import { IFriendsService } from '@services/interfaces/IFriendsService.js';
 import { FriendsService } from '@services/implementations/FriendsService.js';
 import { IAccountService } from '@services/interfaces/IAccountService.js';
 import { AccountService } from '@services/implementations/AccountService.js';
+import { IRoomService } from '@services/interfaces/IRoomService.js';
+import { RoomService } from '@services/implementations/RoomService.js';
 
 const container = new Container();
 //Register App configurations
@@ -42,11 +46,13 @@ container.addAutoMapper();
 //Register Repositories
 container.bind<IFriendsRepository>(TYPES.IFriendsRepository).to(FriendsRepository).inRequestScope();
 container.bind<IAccountRepository>(TYPES.IAccountRepository).to(AccountRepository).inRequestScope();
+container.bind<IRoomRepository>(TYPES.IRoomRepository).to(RoomRepository).inRequestScope();
 
 //Register Services
 container.bind<IGeminiService>(TYPES.IGeminiService).to(GeminiService).inRequestScope();
 container.bind<IFriendsService>(TYPES.IFriendsService).to(FriendsService).inRequestScope();
 container.bind<IAccountService>(TYPES.IAccountService).to(AccountService).inRequestScope();
+container.bind<IRoomService>(TYPES.IRoomService).to(RoomService).inRequestScope();
 
 
 export { container };
@@ -55,3 +61,5 @@ export { container };
 import '@controllers/GeminiController.js';
 import '@controllers/FriendsController.js';
 import '@controllers/AccountController.js';
+import '@controllers/RoomController.js';
+import '@controllers/AuthenticateController.js';

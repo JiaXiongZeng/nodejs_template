@@ -26,6 +26,7 @@ Container.prototype.addORM = function () {
             dbName: dbConfig.Database,
             user: dbConfig.UserNmae,
             password: dbConfig.Password,
+            forceUtcTimezone: false,
             entities: [
                 `${entitiesDir}/**/*.js`
             ],

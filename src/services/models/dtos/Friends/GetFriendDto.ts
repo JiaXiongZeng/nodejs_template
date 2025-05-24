@@ -3,7 +3,7 @@ import { AutoMap } from '@automapper/classes';
 /**
  * The dto model for getting friends
  */
-export class GetFriendsDto {
+export class GetFriendDto {
     @AutoMap()
     Id: string;
 

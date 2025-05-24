@@ -53,9 +53,6 @@ export class GeminiController extends BaseHttpController {
         @request() req: Request) {
             req.session.LoginUser = {
                 Id: userId,
-                Name: "Unknown",
-                Password: password,
-                Email: "Unknown",
                 Roles: [],
                 Resources: []
             };

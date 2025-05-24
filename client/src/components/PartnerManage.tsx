@@ -3,16 +3,12 @@ import { Outlet } from 'react-router';
 import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
-import PeopleIcon from '@mui/icons-material/People';
-import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
-import NotInterestedIcon from '@mui/icons-material/NotInterested';
-
-import ReplaceLink from '@components/Customization/ReplaceLink';
-
+import { IconProxy } from '@components/Customization/IconProxy.js';
+import ReplaceLink from '@components/Customization/ReplaceLink.js';
 import { 
   InnerFixedBottomNavigation, 
   InnerFixedBottomNavContext 
-} from '@components/Customization/InnerFixedBottomNavigation';
+} from '@components/Customization/InnerFixedBottomNavigation.js';
 
 export const PartnerManage = () => {
   const [val, setVal] = useState(0);
@@ -25,9 +21,9 @@ export const PartnerManage = () => {
       }}>
         <Outlet/>
         <InnerFixedBottomNavigation>
-          <BottomNavigationAction component={ReplaceLink} to="/partner/list" replace label="List" icon={<PeopleIcon />} />
-          <BottomNavigationAction component={ReplaceLink} to="/partner/email" replace label="Mail Box" icon={<MarkAsUnreadIcon />} />
-          <BottomNavigationAction label="Banned" icon={<NotInterestedIcon />} />
+          <BottomNavigationAction component={ReplaceLink} to="/partner/list" replace label="List" icon={<IconProxy iconName="PartnerList"/>} />
+          <BottomNavigationAction component={ReplaceLink} to="/partner/email" replace label="Mail Box" icon={<IconProxy iconName="EmailUnread" />} />
+          <BottomNavigationAction component={ReplaceLink} to="/partner/banned" replace label="Banned" icon={<IconProxy iconName="BanndedList" />} />
         </InnerFixedBottomNavigation>
       </InnerFixedBottomNavContext>      
     </Box>

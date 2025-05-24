@@ -2,7 +2,7 @@ import { type Mapper } from '@automapper/core';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '@infrastructures/di/types.js';
 import { IFriendsService } from '@services/interfaces/IFriendsService.js';
-import { GetFriendsDto } from '@services/models/dtos/Friends/GetFriendsDto.js';
+import { GetFriendDto } from '@services/models/dtos/Friends/GetFriendDto.js';
 import { GetFriendsInfoModel } from '@services/models/infoModels/Friends/GetFriendsInfoModel.js';
 import { type IFriendsRepository } from '@repositories/interfaces/IFriendsRepository.js';
 import { GetFriendsDataModel } from '@repositories/models/dataModels/Friends/GetFriendsDataModel.js';
@@ -13,7 +13,7 @@ import { DelFriendInfoModel } from '@services/models/infoModels/Friends/DelFrien
 import { DelFriendCondtion } from '@repositories/models/conditions/Friends/DelFriendCondition.js';
 
 @injectable()
-export class FriendsService implements IFriendsService{
+export class FriendsService implements IFriendsService {
     private _mapper: Mapper;
     private _repository: IFriendsRepository;
 
@@ -25,10 +25,10 @@ export class FriendsService implements IFriendsService{
         this._repository = repository;
     }
 
-    public async GetFriends(info: GetFriendsInfoModel): Promise<GetFriendsDto[]> {
+    public async GetFriends(info: GetFriendsInfoModel): Promise<GetFriendDto[]> {
         const cond = this._mapper.map(info, GetFriendsInfoModel, GetFriendsCondition);
         const dataModels = await this._repository.GetFriends(cond);
-        const dto = await this._mapper.mapArray(dataModels, GetFriendsDataModel, GetFriendsDto);
+        const dto = this._mapper.mapArray(dataModels, GetFriendsDataModel, GetFriendDto);
         return dto;
     }
     public async AddFriend(info: AddFriendInfoModel) {

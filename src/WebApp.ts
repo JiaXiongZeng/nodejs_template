@@ -8,7 +8,6 @@ import { configMiddleware, IConfigSettings } from '@middlewares/ConfigMiddleware
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from '@infrastructures/di/inversify.config.js';
 import { TYPES } from '@infrastructures/di/types.js';
-import { UserRoutes } from '@routes/UserRoutes.js';
 import { DefaultRoutes } from '@routes/DefaultRoutes.js';
 import { CustomAuthProvider } from '@middlewares/CustomerAuthProvider.js';
 import { RedisSessionMiddleware } from '@middlewares/RedisSessionMiddleware.js';
@@ -69,9 +68,6 @@ export class WebApp {
     }
 
     private setupRoutes = () => {
-        const userRoutes = new UserRoutes();
-        this._app.use("/api/users", userRoutes.router);
-
         // Serve static files from the dist directory
         const dirName = this._esmUtility.GetDirName(import.meta.url);
         this._app.use(express.static(path.join(dirName, './dist')));

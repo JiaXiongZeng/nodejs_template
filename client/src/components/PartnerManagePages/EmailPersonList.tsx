@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Grid2 from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -79,7 +79,7 @@ const EmailPersonList = () => {
                     </>
                 )}
             </SecondaryAppBar>
-            <Box sx={{ pt: '3.5em' }}>
+            <Box sx={{ pt: '3em' }}>
                 <Box sx={{ 
                     padding: '1ch'
                 }}>
@@ -133,7 +133,7 @@ const EmailPersonList = () => {
                                                     xs: 'column',
                                                     sm: 'row'
                                                 }}>
-                                                    <Grid2
+                                                    <Grid
                                                         sx={{
                                                             padding: '5px',
                                                             alignContent: 'center'
@@ -142,8 +142,8 @@ const EmailPersonList = () => {
                                                         <Typography color="text.secondary" >
                                                             {`${msg.time}`}
                                                         </Typography>
-                                                    </Grid2>
-                                                    <Grid2
+                                                    </Grid>
+                                                    <Grid
                                                         sx={{
                                                             padding: '5px',
                                                             alignContent: 'center'
@@ -159,7 +159,7 @@ const EmailPersonList = () => {
                                                         }}>
                                                             <IconProxy iconName="Delete" />
                                                         </IconButton>
-                                                    </Grid2>                                                    
+                                                    </Grid>                                                    
                                                 </Stack>
                                             </ListItemAvatar>
                                         </ListItem>

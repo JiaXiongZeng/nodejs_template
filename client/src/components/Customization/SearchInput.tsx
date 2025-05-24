@@ -7,14 +7,7 @@ export const Search = styled('div')(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
+  }
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -27,34 +20,31 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-export const StyledInputBase = styled(({ className, size, ...props }: TextFieldProps) => (
-  <TextField size={size ?? "small"} {...props} classes={{ root: className }} />
+export const StyledInputBase = styled(({ className, size, slotProps: oriSlotProps, ...props }: TextFieldProps) => (
+  <TextField size={size ?? "small"} {...props} classes={{ root: className }} slotProps={{
+    ...oriSlotProps,
+    ...{
+      inputLabel:{
+        sx: {
+          '&[data-shrink="false"]': {
+              paddingLeft: '2em'
+          }          
+        },
+        ...oriSlotProps?.inputLabel
+      }
+    }
+  }} />
 ))(({ theme }) => ({
   color: 'inherit',
   [`&.${textFieldClasses.root}`]: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    //paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '30ch',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '40ch',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '80ch',
-    }  
+    transition: theme.transitions.create('width')
   },
-  // placeholder style
-  '& input::placeholder': {
-    textIndent: '2em',
+  '& .MuiInputBase-root': {
+    paddingLeft: '2.5em!important'
   },
-  // input box style
-  '& .MuiInputBase-input': {
-    textIndent: '2em',
-  }
+  // '& .MuiAutocomplete-input': {
+  //   minWidth: 'fit-content!important'
+  // }
 }));
 
 export default Search;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useOutletContext } from "react-router";
 
-import Grid2 from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -25,6 +25,8 @@ export const AddRoom = () => {
 
   const refModal = useOutletContext<CustomizedDialogHandler>();
 
+  const inviteLimit = 99;
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
     setChatRoom((prev) => ({
@@ -47,7 +49,7 @@ export const AddRoom = () => {
       <DialogContent sx={{
         overflowX: 'hidden'
       }} >
-          <Grid2 container spacing={1}>
+          <Grid container spacing={1}>
             <TextField
                 fullWidth
                 label="Chat Room Name"
@@ -66,7 +68,7 @@ export const AddRoom = () => {
                 rows={3}
             />            
             <Stack flexGrow={1} spacing={1} >
-              <Grid2>
+              <Grid>
                 <FormControlLabel
                     control={
                       <Checkbox
@@ -88,20 +90,20 @@ export const AddRoom = () => {
                       required
                     />
                 )}
-              </Grid2>
-              <Grid2>
-                <Typography>Invitation Limit</Typography>
+              </Grid>
+              <Grid>
+                <Typography>{`Invitation Limit (${chatRoom.inviteLimit} / ${inviteLimit})`}</Typography>
                 <Slider
                     value={chatRoom.inviteLimit}
                     onChange={handleSliderChange}
                     name="inviteLimit"
-                    min={1}
-                    max={100}
+                    min={0}
+                    max={inviteLimit}
                     step={1}
                     valueLabelDisplay="auto" />
-              </Grid2>              
+              </Grid>              
             </Stack>            
-        </Grid2>
+        </Grid>
       </DialogContent>
       <DialogActions>
           <Button variant="contained" color="primary" onClick={handleSubmit} >

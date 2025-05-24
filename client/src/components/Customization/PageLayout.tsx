@@ -7,21 +7,16 @@ import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
 import MuiListItemButton, { ListItemButtonProps as MuiListItemButtonProps } from '@mui/material/ListItemButton';
 import MuiListItemIcon, { ListItemIconProps as MuiListItemIconProps } from '@mui/material/ListItemIcon';
 import MuiListItemText, { ListItemTextProps as MuiListItemTextProps } from '@mui/material/ListItemText';
 
 import reactSVG from '@assets/react.svg';
 import StyledBadge from '@components/Customization/StyledBadge.js';
-
+import { IconProxy } from '@components/Customization/IconProxy';
 
 export const drawerMaxWidth = 200;
 
@@ -222,7 +217,7 @@ const PageLayout = (
                       drawerOpen! && { display: 'none' },
                   ]}
                   >
-                    <MenuIcon />
+                    <IconProxy iconName="Menu" />
                   </IconButton>
                   <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }} >
                     Chat with AI in meetings
@@ -255,7 +250,11 @@ const PageLayout = (
             <Drawer variant="permanent" open={drawerOpen}>
                 <DrawerHeader>
                 <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    {
+                        theme.direction === 'rtl' ? 
+                          <IconProxy iconName="AngleBracketRight" /> : 
+                          <IconProxy iconName="AngleBracketLeft" />
+                    }
                 </IconButton>
                 </DrawerHeader>
                 <Divider />

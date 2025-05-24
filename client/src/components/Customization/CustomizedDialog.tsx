@@ -10,7 +10,7 @@ import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import Silde from '@mui/material/Slide';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { IconProxy } from '@components/Customization/IconProxy.js';
 
 const BootstrapDialog = styled(({ className, children, ...restProps}: DialogProps & {
   fullWidth?: boolean,
@@ -179,7 +179,7 @@ export const CustomizedDialog
               color: theme.palette.grey[500],
             })}
           >
-            <CloseIcon />
+            <IconProxy iconName="Close" />
           </IconButton>
         }        
         {children}
