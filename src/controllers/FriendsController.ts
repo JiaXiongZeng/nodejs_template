@@ -10,7 +10,7 @@ import { type IFriendsService } from '@services/interfaces/IFriendsService.js';
 import { ParameterValidate, ParameterSource } from '@middlewares/ValidDecorator.js';
 import { GetFriendsParameter } from '@controllers/models/parameters/Friends/GetFriendsParameter.js';
 import { GetFriendsInfoModel } from '@services/models/infoModels/Friends/GetFriendsInfoModel.js';
-import { GetFriendsDto } from '@services/models/dtos/Friends/GetFriendsDto.js';
+import { GetFriendDto } from '@services/models/dtos/Friends/GetFriendDto.js';
 import { GetFriendsViewModel } from '@controllers/models/viewmodels/Friends/GetFriendsViewModel.js';
 import { AddFriendParameter } from '@controllers/models/parameters/Friends/AddFriendParameter.js';
 import { AddFriendRouteParameter } from '@controllers/models/parameters/Friends/AddFriendRouteParameter.js';
@@ -78,7 +78,7 @@ export class FriendsController extends ApiController {
     ) {
         const infoModel = this._mapper.map(parameter, GetFriendsParameter, GetFriendsInfoModel);
         const dto = await this._srvFriend.GetFriends(infoModel);
-        const viewModel = this._mapper.mapArray(dto, GetFriendsDto, GetFriendsViewModel);
+        const viewModel = this._mapper.mapArray(dto, GetFriendDto, GetFriendsViewModel);
         return this.ApiOk(viewModel);
     }
 

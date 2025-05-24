@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { styled } from '@mui/material';
-import Grid2, { Grid2Props } from '@mui/material/Grid2';
+import Grid, { GridProps } from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -15,10 +15,10 @@ import { IconProxy, type IconType } from '@components/Customization/IconProxy.js
 
 import reactSVG from '@assets/react.svg';
 
-const Item = styled(({children, ...props }: Grid2Props) => 
-    <Grid2 {...props} size={{xs: 6, sm: 6, md: 2, lg: 2}} >
+const Item = styled(({children, ...props }: GridProps) => 
+    <Grid {...props} size={{xs: 6, sm: 6, md: 2, lg: 2}} >
         {children}
-    </Grid2>
+    </Grid>
 )(({theme}) => ({    
     padding: theme.spacing(1),
     boxShadow: theme.shadows[2],
@@ -62,7 +62,7 @@ export const AddPartner = () => {
                              />
                         </SecAppBarMiddleBlock>
                         <SecAppBarRightBlock>
-                            <CustomizedTooltip title="Go back">
+                            <CustomizedTooltip arrow title="Go back">
                                 <IconButton onClick={() => {
                                     navigate('/partner/list', { replace: true });
                                 }} >
@@ -73,7 +73,7 @@ export const AddPartner = () => {
                     </>
                 )}
             </SecondaryAppBar>
-            <Box sx={{ pt: '3.5em' }}>
+            <Box sx={{ pt: '3em' }}>
                 <Box sx={{ 
                     padding: '1ch',
                     '&>div': {
@@ -83,8 +83,8 @@ export const AddPartner = () => {
                     <Typography component="div" variant="h6" sx={{fontWeight: 'bold'}} >
                         Search Results
                     </Typography>
-                    <Grid2 container size={12} >
-                            <Grid2 size={{ xs: 2 }} 
+                    <Grid container size={12} >
+                            <Grid size={{ xs: 2 }} 
                                    sx={(theme) => ({ 
                                         justifyItems: 'center', 
                                         alignContent: 'center',
@@ -101,39 +101,39 @@ export const AddPartner = () => {
                                         height: '4em'
                                     }
                                 })} />
-                            </Grid2>
-                            <Grid2 size={{ xs: 10, sm: 'grow'}}>
+                            </Grid>
+                            <Grid size={{ xs: 10, sm: 'grow'}}>
                                 <Stack>
-                                    <Grid2 sx={{ mb: 0.5 }}>
+                                    <Grid sx={{ mb: 0.5 }}>
                                         <Typography variant="h6">Willy Zeng</Typography>
-                                    </Grid2>
-                                    <Grid2 sx={{ mb: 1 }}>
+                                    </Grid>
+                                    <Grid sx={{ mb: 1 }}>
                                         <Typography variant="body2" sx={{
                                             color: 'text.secondary'
                                         }}>@A0001</Typography>                                        
-                                    </Grid2>
-                                    <Grid2 container 
+                                    </Grid>
+                                    <Grid container 
                                            spacing={1} 
                                            sx={{pl: '0px'}} 
                                            direction="row"
                                     >
-                                        <Grid2>
+                                        <Grid>
                                             <Button variant="contained" size="small" >
                                                 <IconProxy iconName="PersonAdd" />
                                                 <Typography sx={{ml: '1ch'}}>Add as partner</Typography>
                                             </Button>
-                                        </Grid2>
-                                        <Grid2>
+                                        </Grid>
+                                        <Grid>
                                             <Button variant="contained" size="small" color="error" >
                                                 <IconProxy iconName="Block" />
                                                 <Typography sx={{ml: '1ch'}}>Block</Typography>
                                             </Button>
-                                        </Grid2>                                        
-                                    </Grid2>
+                                        </Grid>                                        
+                                    </Grid>
                                 </Stack>
-                            </Grid2>          
-                        </Grid2>
-                    <Grid2 container direction="row" spacing={1} >                        
+                            </Grid>          
+                        </Grid>
+                    <Grid container direction="row" spacing={1} >                        
                         {InterestingItems.map((item, index) => (
                             <Item key={index}>
                                 <IconProxy iconName={item.muiIcon} color="primary" fontSize="medium" />
@@ -142,11 +142,11 @@ export const AddPartner = () => {
                                 </Typography>
                             </Item>
                         ))}
-                    </Grid2>
+                    </Grid>
                     <Typography component="div" variant="h6" sx={{fontWeight: 'bold'}} >
                         About
                     </Typography>
-                    <Grid2 container 
+                    <Grid container 
                            sx={(theme) => ({
                               [`${theme.breakpoints.down('sm')}`]: {
                                   maxHeight: '20ch',
@@ -154,7 +154,7 @@ export const AddPartner = () => {
                               }
                            })}
                     >
-                        <Grid2 
+                        <Grid 
                            size={{
                               sm: 11,
                               md: 10,
@@ -175,39 +175,39 @@ export const AddPartner = () => {
                                 Whether collaborating with teammates or working independently, 
                                 My dedication and enthusiasm make me a valuable asset in any endeavor.
                             </Typography>
-                        </Grid2>                        
-                    </Grid2>
+                        </Grid>                        
+                    </Grid>
                     <Typography variant="h6" sx={{fontWeight: 'bold'}} >
                         Contact
                     </Typography>
-                    <Grid2 container>                        
+                    <Grid container>                        
                         <Stack>
-                            <Grid2 container>
-                                <Grid2 sx={{width: '2em'}}>
+                            <Grid container>
+                                <Grid sx={{width: '2em'}}>
                                     <IconProxy iconName="Phone" color="primary" fontSize="medium" />
-                                </Grid2>
-                                <Grid2>
+                                </Grid>
+                                <Grid>
                                     +1 123 456 7890
-                                </Grid2>
-                            </Grid2>
-                            <Grid2 container>
-                                <Grid2 sx={{width: '2em'}}>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid sx={{width: '2em'}}>
                                     <IconProxy iconName="Email" color="primary" fontSize="medium" />
-                                </Grid2>
-                                <Grid2>
+                                </Grid>
+                                <Grid>
                                     willy.tseng@evertrust.com.tw
-                                </Grid2>
-                            </Grid2>
-                            <Grid2 container>
-                                <Grid2 sx={{width: '2em'}}>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid sx={{width: '2em'}}>
                                     <IconProxy iconName="WWW" color="primary" fontSize="medium" />
-                                </Grid2>
-                                <Grid2>
+                                </Grid>
+                                <Grid>
                                     https://www.google.com
-                                </Grid2>
-                            </Grid2>
+                                </Grid>
+                            </Grid>
                         </Stack>
-                    </Grid2>
+                    </Grid>
                 </Box>                
             </Box>
         </>        

@@ -5,10 +5,6 @@ import { mikro } from '@automapper/mikro';
 import { ApiMappingProfile } from '@controllers/mappings/ApiMappingProfile.js';
 import { ServiceMappingProfile } from '@services/mappings/ServiceMappingProfile.js';
 
-export const mapper = createMapper({
-    strategyInitializer: mikro()
-});
-
 Container.prototype.addAutoMapper = function () {
     const container = this as Container;
 

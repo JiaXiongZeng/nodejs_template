@@ -54,6 +54,6 @@ export const CollapsableHandler = ({ title, expaned, toggle, children }: Collaps
             <Collapse in={isExpanded} timeout="auto" unmountOnExit >
                 {children}
             </Collapse>
-        </>        
+        </>
     );
 }

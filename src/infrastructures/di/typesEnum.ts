@@ -14,5 +14,7 @@ export const TYPES_ENUM = {
     IFriendsRepository: 'IFriendsRepository',
     IFriendsService: 'IFriendsService',
     IAccountRepository: 'IAccountRepository',
-    IAccountService: 'IAccountService'
+    IAccountService: 'IAccountService',
+    IRoomRepository: 'IRoomRepository',
+    IRoomService: 'IRoomService'
 };

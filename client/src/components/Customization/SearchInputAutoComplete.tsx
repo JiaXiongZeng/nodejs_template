@@ -1,7 +1,9 @@
-import Autocomplete, { AutocompleteProps, autocompleteClasses } from '@mui/material/Autocomplete';
+import { ReactNode } from 'react';
+import Autocomplete, { AutocompleteProps, autocompleteClasses, AutocompleteRenderInputParams } from '@mui/material/Autocomplete';
 import { ChipTypeMap } from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
-import SearchIcon from '@mui/icons-material/Search';
+
+import { IconProxy } from '@components/Customization/IconProxy.js';
 import { Search, StyledInputBase, SearchIconWrapper } from '@components/Customization/SearchInput';
 
 export function SearchInputAutoComplete<T, 
@@ -12,8 +14,9 @@ export function SearchInputAutoComplete<T,
 (props: Omit<AutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent>, 'renderInput'> & {
     placeholder?: string;
     hoverHighlight?: boolean;
+    renderInput?: (params: AutocompleteRenderInputParams) => ReactNode;
 }) {
-    const { placeholder, ...restProps } = props;
+    const { placeholder, renderInput: oriRenderInput, ...restProps } = props;
     return (
         <Search>
             <Autocomplete
@@ -23,6 +26,9 @@ export function SearchInputAutoComplete<T,
                         sx: {
                             [`& .${autocompleteClasses.option}:hover`]: {
                                 backgroundColor: "rgba(0,0,0,0.12)"
+                            },
+                            [`& .${autocompleteClasses.option}.Mui-focused`]: {
+                                backgroundColor: "rgba(0,0,0,0.12)"
                             }
                         }
                     }
@@ -30,21 +36,29 @@ export function SearchInputAutoComplete<T,
                 renderInput={(params) => (
                     <>
                         <SearchIconWrapper>
-                            {props.loading ? <CircularProgress color="inherit" size={20} /> : <SearchIcon />}
+                            {
+                                props.loading ? 
+                                <CircularProgress color="inherit" size={20} /> : 
+                                <IconProxy iconName="Search" />
+                            }
                         </SearchIconWrapper>
-                        <StyledInputBase
-                            {...params}
-                            placeholder={placeholder}
-                            slotProps={{
-                                input: {
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <>
-                                            {params.InputProps.endAdornment}
-                                        </>
-                                    )
-                                }
-                            }} />
+                        {
+                            oriRenderInput ?
+                                oriRenderInput(params) :
+                                    <StyledInputBase
+                                    {...params}
+                                    placeholder={placeholder}
+                                    slotProps={{
+                                        input: {
+                                            ...params.InputProps,
+                                            endAdornment: (
+                                                <>
+                                                    {params.InputProps.endAdornment}
+                                                </>
+                                            )
+                                        }
+                                    }} />
+                        }                        
                     </>
                 )}
             />

@@ -5,14 +5,16 @@ import
 } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Typography from '@mui/material/Typography';
-import { withDefaults } from '@components/Customization/Utilities';
-import { drawerMaxWidth, PageLayoutContext } from "@components/Customization/PageLayout";
+
+import { IconProxy } from '@components/Customization/IconProxy.js';
+import { withDefaults } from '@components/Customization/Utilities.js';
+import { drawerMaxWidth, PageLayoutContext } from '@components/Customization/PageLayout.js';
 
 export const SecAppBarMiddleBlock: FC<{children?: ReactNode | ReactNode[] }> = ({ children }) => (<>{children}</>);
 export const SecAppBarRightBlock: FC<{children?: ReactNode | ReactNode[]}> = ({ children }) => (<>{children}</>);
@@ -141,7 +143,9 @@ export const SecondaryAppBar = <T=SecondaryAppBarContextProps>({ title, moreIcon
                         <Toolbar variant="dense" >          
                             {
                                 title && 
-                                <Box sx={{ flexGrow: 1 }} >
+                                <Box sx={{ 
+                                  mr: { xs: 0, sm: 2 }
+                                }}>
                                     <Typography 
                                         variant="h6" 
                                         sx={{
@@ -153,28 +157,40 @@ export const SecondaryAppBar = <T=SecondaryAppBarContextProps>({ title, moreIcon
                                     </Typography>
                                 </Box>
                             }
-                            {middleBlock}
-                            <Box sx={{ 
-                              display: {
-                                  md: 'flex',
-                                  ...(moreIcon? {xs: 'none'}: {})
+                            <Grid container sx={{ flexGrow: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+                              {
+                                middleBlock &&
+                                <Grid sx={{
+                                  flexGrow: { xs: 1, sm: 0.5, md: 0.8 },
+                                }}>
+                                  {middleBlock}
+                                </Grid>
                               }
-                            }}>
-                                {rightBlock}
-                            </Box>
-                            {
-                              moreIcon ?
-                              <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                  <IconButton
-                                  size="large"
-                                  color="inherit"
-                                  onClick={handleMobileMenuOpen}
-                                  >
-                                    <MoreIcon />
-                                  </IconButton>
-                              </Box>
-                              : null
-                            }                            
+                              {
+                                rightBlock &&
+                                <Grid sx={{ 
+                                  display: {
+                                      md: 'flex',
+                                      ...(moreIcon? {xs: 'none'}: {})
+                                  }
+                                }}>
+                                    {rightBlock}
+                                </Grid>
+                              }
+                              {
+                                moreIcon ?
+                                <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                    <IconButton
+                                    size="large"
+                                    color="inherit"
+                                    onClick={handleMobileMenuOpen}
+                                    >
+                                      <IconProxy iconName="More" />
+                                    </IconButton>
+                                </Grid>
+                                : null
+                              }
+                            </Grid>                   
                         </Toolbar>
                     </AppBar>
                     <Menu

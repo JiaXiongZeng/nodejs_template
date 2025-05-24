@@ -1,6 +1,5 @@
 import { Entity, Property, Unique, OneToMany } from '@mikro-orm/core';
 import { BaseEntity } from '@repositories/models/entities/BaseEntity.js';
-import { Relationship } from '@repositories/models/entities/Relationship.js';
 
 @Entity({ tableName: 'account' })
 export class Account extends BaseEntity {
@@ -34,16 +33,4 @@ export class Account extends BaseEntity {
 
   @Property({ type: 'boolean', default: true })
   isEnable: boolean = true;
-
-  /**
-   * The relationship for the entity referencing to Relationship entity
-   */
-  @OneToMany(() => Relationship, rel => rel.object)
-  relationshipAsObject: Relationship[];
-
-  /**
-   * The relationship for the entity referencing to Relationship entity
-   */
-  @OneToMany(() => Relationship, rel => rel.subject)
-  relationshipAsSubject: Relationship[];
 }
